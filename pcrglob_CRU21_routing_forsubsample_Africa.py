@@ -43,15 +43,15 @@ def extractWaterBodyParameterization(zipFileName,extractionPath,matchList):
 #-Main
 #-Initialization
 #-forcing dataset to be used
-forcingDataSet= 'CRU21'
+forcingDataSet= 'VIC'
 domainStr= 'Africa'
 
 #-date management: start and end date and corresponding time steps
 # and duration (days) of a model step
 duration= 1.
 timeSec= 86400
-startYear= 1901
-endYear= 1902
+startYear= 2000
+endYear= 2005
 yearRange= range(startYear,endYear)
 lastYear= endYear-1
 initYear= startYear-1
@@ -84,7 +84,7 @@ noReservoirs= False
 testLocalWaterBalance= False
 reportLocalWaterBalance= False
 getSurfaceWaterAttributes= True
-initializeRoutingModel= True
+initializeRoutingModel= False
 #-number of runs to initialize the model
 nrRunsInitialization= 2
 #-weight to update long-term average discharge and bankful values
@@ -289,8 +289,8 @@ while not exitCode:
 	##-extract input from archive
 	dailyArchiveInputFileName=  dailyArchiveFileName % (forcingDataSet,year)
 	print '* processing archive %s' %  dailyArchiveInputFileName
-	extractDailyData(os.path.join(pathRemote,forcingDataSet),dailyArchiveInputFileName,pathRes,\
-		resStackList[qlocStart:iniOutVarStart],calendar.isleap(year))
+	#extractDailyData(os.path.join(pathRemote,forcingDataSet),dailyArchiveInputFileName,pathRes,\
+	#	resStackList[qlocStart:iniOutVarStart],calendar.isleap(year))
 	#-copy initial conditions
 	copyIniFiles(pathIniSource,pathRes,['ini'])
 	#-retrieve average long-term discharge and estimate bankful discharge
