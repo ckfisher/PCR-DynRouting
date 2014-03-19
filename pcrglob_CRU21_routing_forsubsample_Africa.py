@@ -86,7 +86,7 @@ reportLocalWaterBalance= False
 getSurfaceWaterAttributes= True
 initializeRoutingModel= False
 #-number of runs to initialize the model
-nrRunsInitialization= 2
+nrRunsInitialization= 1
 #-weight to update long-term average discharge and bankful values
 updateQWeight= 0.2
 #-maps: clone map and cell area
@@ -314,7 +314,7 @@ while not exitCode:
 		createOutputDirs([tempDir])
 		extractWaterBodyParameterization(reservoirParameterizationZipFileName,tempDir,[str(year)])
 	#-update long-term average discharge when initialization complete, resetting it to zero for changed outlets
-	if runCnt > 0:
+	if runCnt >= 0:
 		if initializeRoutingModel:
 			changedOutlet= (waterBodies.outlet != 0) ^ (clippedRead.get(os.path.join(tempDir,'waterbodyoutlet_%d.map' % initYear)) != 0)
 		else:
@@ -323,14 +323,19 @@ while not exitCode:
 		pcr.report(changedOutlet,targetFileName)	
 		try:
 			targetFileName= os.path.join(pathIniTarget,'qavg_longterm.map')
+			print targetFileName
 			Q= stackAverage(pathRes,resStackList[iniOutVarStart],1,yearDays)
-			averageQ= (1.-updateQWeight)*averageQ+updateQWeight*Q
-			averageQ= pcr.ifthenelse(changedOutlet,averageQIni,averageQ)
+			print 1
+                        averageQ= (1.-updateQWeight)*averageQ+updateQWeight*Q
+			print 2
+			#averageQ= pcr.ifthenelse(changedOutlet,averageQIni,averageQ)
+			print 3
 			pcr.report(averageQ,targetFileName)
 			#-update wStr
 			wStr+= 'total runoff [km3]: %.2e' % \
 				pcr.cellvalue(pcr.maptotal(pcr.ifthen(LDD ==  5,Q*1.e-9*yearDays*timeSec)),1)[0]
 		except:
+   			print sys.exc_info()
 			wStr+= '\n - long-term discharge has not been updated!'
 	if not initializeRoutingModel:
 		#-read in maps with water body parameterization for initialization and initialize water bodies for next year
@@ -366,7 +371,7 @@ while not exitCode:
 	shutil.move(sourceFileName,targetFileName)
 	#-copy initial conditions and archive output
 	copyIniFiles(pathRes,pathIniTarget,['ini'])
-	"""if not initializeRoutingModel:
+	if not initializeRoutingModel:
 		dailyArchiveOutputFileName=  os.path.join(pathResZip,\
 			dailyArchiveFileName % (modelSignature,year))
 		print '\t* archiving daily output to %s' % dailyArchiveOutputFileName
@@ -382,6 +387,7 @@ while not exitCode:
 			sourceFileName= os.path.join(pathIniSource,fileName)
 			dailyArchive.add(sourceFileName,sourceFileName)
 		dailyArchive.close()
+		'''
 		try:
 			print '\t* transferring output',
 			shutil.move(os.path.join(pathResZip,dailyArchiveFileName % (modelSignature,year)),\
@@ -389,7 +395,7 @@ while not exitCode:
 			print
 		except:
 			print 'has not succeeded'
-	"""
+		'''
         #-increment runCnt and reset initialization
 	# and decide to stop run when no actual years are left
 	runCnt+= 1
