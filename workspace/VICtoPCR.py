@@ -85,21 +85,21 @@ for t in xrange(0,nt):
   ga("drprec = re(dprec,720,linear,-179.875,0.5,360,linear,-89.875,0.5,ba)")
   precdata = ga.exp("drprec")
   np.ma.set_fill_value(precdata,-9.999e+02)
-  prec = np.ma.getdata(precdata)
+  prec = np.true_divide(np.ma.getdata(precdata),1000)
 
   #Read and resample runoff
   ga("drunoff = maskout(sum(runoff, time=%s, time=%s),runoff)" % (timestamp, timestamp2))
   ga("drrunoff = re(drunoff,720,linear,-179.875,0.5,360,linear,-89.875,0.5,ba)")
   runoffdata = ga.exp("drrunoff")
   np.ma.set_fill_value(runoffdata,-9.999e+02)
-  runoff = np.ma.getdata(runoffdata)
+  runoff = np.true_divide(np.ma.getdata(runoffdata),1000)
 
   #Read and resample baseflow
   ga("dbaseflow = maskout(sum(baseflow, time=%s, time=%s),baseflow)" % (timestamp, timestamp2))
   ga("drbaseflow = re(dbaseflow,720,linear,-179.875,0.5,360,linear,-89.875,0.5,ba)")
   baseflowdata = ga.exp("drbaseflow")
   np.ma.set_fill_value(baseflowdata,-9.999e+02)
-  baseflow = np.ma.getdata(baseflowdata)
+  baseflow = np.true_divide(np.ma.getdata(baseflowdata),1000)
 
   #Produce daily map files
   precmap = numpy2pcr(Scalar,np.flipud(precdata),-9.999e+02)
