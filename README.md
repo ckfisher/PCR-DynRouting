@@ -1,5 +1,5 @@
 PCR-DynRouting
-==============
+===============
 Current version at 1/2 degree with mask of Africa applied
 
 Must download the global 1/2 degree forcings and place them in the VIC folder
