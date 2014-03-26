@@ -76,7 +76,7 @@ addOutVarStart= 4
 extFile= '.001'
 # - archives with daily results stored as tar.gz and zip file with parameterization
 dailyArchiveFileName= 'pcrglobwb_%s_%04d.tar.gz'
-reservoirParameterizationZipFileName= '../reservoirparameterization.zip'
+reservoirParameterizationZipFileName= 'reservoirparameterization.zip'
 
 ##-file names used by the routing model, this is messy!
 #-initialization: boolean settings
