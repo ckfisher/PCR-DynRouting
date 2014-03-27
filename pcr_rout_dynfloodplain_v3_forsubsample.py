@@ -247,7 +247,7 @@ class pcrglobRoutingDynFloodPlains(pcrm.DynamicModel):
 		#-reading in fluxes over land and water area for current time step [m/d]
 		# and read in reservoir demand and surface water extraction [m3]
 		try:
-			self.landSurfaceQ= clippedRead.get(pcrm.generateNameT(landSurfaceQFileName,self.currentTimeStep()))
+			self.landSurfaceQ= (pcr.scalar(1)+pcr.cos(self.currentTimeStep()))#clippedRead.get(pcrm.generateNameT(landSurfaceQFileName,self.currentTimeStep()))
 		except:
 			pass
 		try:
