@@ -8,3 +8,9 @@ Extract:
 - VIC/VICForcings_2000_2005.tgz
 
 Run pcrglob_routing_driver.py
+
+===============
+Fine resolution DEM download from /home/air2/niko/Routing/Elevation.nc
+Put in folder preprocessing/Elevation/.
+
+Run preprocessing/resampleElevation.py to resample Elevation
