@@ -43,7 +43,7 @@ def extractWaterBodyParameterization(zipFileName,extractionPath,matchList):
 #-Main
 #-Initialization
 #-forcing dataset to be used
-forcingDataSet= 'VIC'
+forcingDataSet= 'VIC_0.5'
 domainStr= 'Africa'
 
 #-date management: start and end date and corresponding time steps
@@ -60,13 +60,13 @@ julianDay= [1,32,60,91,121,152,182,213,244,274,305,335,366]
 addDay= [0,0,1,1,1,1,1,1,1,1,1,1,1]
 #-paths
 #-results and storage
-mapsDir= 'maps'
+mapsDir= 'maps/0.5deg'
 tempDir= 'temp'
 pathIni= 'initialconditions'
-pathRes= 'results'
+pathRes= 'results/0.5deg'
 pathResMonthly= 'resmonthly'
-pathResZip= 'reszip'
-pathRemote= ''
+pathResZip= 'reszip/0.5deg'
+pathRemote= '/forcings/'
 
 #-model outputs for import and archiving
 resStackList= ['qloc','qw','qc','wst','vel','fldd','fldf','wata','watd','rest','mbe','mbr']
